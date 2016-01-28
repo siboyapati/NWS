@@ -1,0 +1,144 @@
+<!doctype html>
+<html ng-app="app">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Northwestern Mutual</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+          integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css"
+          integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
+            integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
+            crossorigin="anonymous"></script>
+
+
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+
+
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script>
+    <!-- load angular -->
+
+    <script src="js/controllers/main.js"></script>
+    <!-- load up our controller -->
+    <script src="js/services/books.js"></script>
+    <!-- load our todo service -->
+    <script src="js/core.js"></script>
+    <link rel="stylesheet" href="css/style.css"/>
+    <!-- load our main application -->
+
+</head>
+<body ng-controller="mainController">
+
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Demo Books App</a>
+        </div>
+        <!--<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">-->
+            <!--<ul class="nav navbar-nav">-->
+                <!--<li><a href="#">Add Books</a></li>-->
+            <!--</ul>-->
+        <!--</div>-->
+    </div>
+</nav>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <form name="userForm" ng-submit="submitForm(userForm.$valid)" novalidate> <!-- novalidate prevents HTML5 validation since we will be validating ourselves -->
+                <div class="form-group col-sm-6">
+                    <label>Title</label>
+                    <input type="text" name="name" class="form-control" ng-model="book.title" placeholder="Book Title" required>
+                </div>
+                <div class="form-group col-sm-6">
+                    <label>Author</label>
+                    <input type="text" name="username" class="form-control" placeholder="Name of the author"  ng-model="book.author" required>
+                </div>
+                <div class="form-group col-sm-6">
+                    <label>ISBN</label>
+                    <input type="text" name="isbn" class="form-control" placeholder="ISBN10 (10 digit number) Example: 1234567890" ng-model="book.isbn10" required>
+                </div>
+                <div class="form-group col-sm-6">
+                    <label>Publication Year</label>
+                    <!--<input type="text" name="year" class="form-control" placeholder="Year of publication Example: 2010" ng-model="book.publicationyear" required>-->
+                    <select id="expLevel" class="form-control ng-pristine ng-untouched ng-invalid ng-invalid-required" ng-model="book.publicationyear"  required>
+                        <option value="2016">2016</option>
+                        <option value="2015">2015</option>
+                        <option value="2014">2014</option>
+                        <option value="2013">2013</option>
+                        <option value="2012">2012</option>
+                        <option value="2010">2010</option>
+                        <option value="2009">2008</option>
+                        <option value="2008">2008</option>
+                        <option value="2007">2007</option>
+                        <option value="2006">2006</option>
+                    </select>
+
+                </div>
+
+                <button type="submit" ng-click="createBook(book)" ng-disabled="userForm.$invalid" class="btn btn-default submitBtn">Submit</button>
+            </form>
+        </div>
+    </div>
+
+    <hr/>
+    <p class="bg-warning">Results are sorted by the book title.</p>
+
+    <div class="row">
+        <div class="col-sm-12 text-center">
+            <form>
+                <div class="form-group">
+                    <input type="text" class="form-control input-lg text-center"
+                           placeholder="Search" ng-model="searchText">
+                </div>
+
+            </form>
+        </div>
+    </div>
+    <div class="col-sm-12">
+        <div ng-repeat="book in books | filter:searchText | orderBy:'title'">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-9">
+                            <h5>Title: {{book.title}}</h5>
+                        </div>
+                        <div class="col-sm-3 text-right">
+                            <i class="fa fa-calendar"> {{book.publicationyear}}</i>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            Author: {{book.author}}
+                        </div>
+                        <div class="col-sm-6 text-right">
+                           ISBN:{{book.isbn10}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <p class="text-center" ng-show="loading">
+            <span class="fa fa-spinner fa-spin fa-3x"></span>
+        </p>
+    </div>
+
+</div>
+
+</body>
+</html>

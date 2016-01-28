@@ -1,0 +1,16 @@
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 15px;
+    line-height: 1.42857143;
+    color: #777777;
+    /*padding-top: 70px;*/
+}
+
+.panel-body{
+    padding: 15px;
+}
+
+.submitBtn{
+    margin-left: 10px;
+}

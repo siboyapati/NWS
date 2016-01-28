@@ -1,0 +1,14 @@
+{
+  "name"         : "node-nwm",
+  "version"      : "0.0.0",
+  "description"  : "Books api MEAN stack application.",
+  "main"         : "server.js",
+  "author"       : "Siva Boyapati",
+  "dependencies" : {
+    "express"         : "*",
+    "mongoose"        : "*",
+    "morgan"          : "*",
+    "body-parser"     : "*",
+    "method-override" : "*"
+  }
+}
