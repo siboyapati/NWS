@@ -1,5 +1,5 @@
 angular.module('homeController', [])
-	.controller('mainController', ['$scope','$http','Books', function($scope, $http, Books) {
+	.controller('mainController', ['$scope','$http','Books','toaster', function($scope, $http, Books, toaster) {
 		$scope.formData = {};
 		$scope.loading = true;
 
@@ -16,7 +16,8 @@ angular.module('homeController', [])
 				.success(function(data) {
 					console.log('success');
 					$scope.getBooksList();
-					//$scope.formData = {};
+					$scope.book = null;//clean the forms
+					toaster.pop('success', "Book has been saved", "to database");
 				});
 		}
 
@@ -26,32 +27,4 @@ angular.module('homeController', [])
 				console.log(data);
 				$scope.loading = false;
 			});
-
-		$scope.createTodo = function() {
-			if ($scope.formData.text != undefined) {
-				$scope.loading = true;
-				Todos.create($scope.formData)
-					.success(function(data) {
-						$scope.loading = false;
-						$scope.formData = {};
-					});
-			}
-		};
-		$scope.createUser = function () {
-			$scope.user=[];
-			$scope.user.name = "siva boyapti";
-			Users.create($scope.formData)
-				.success(function (data) {
-					console.log(data);
-				});
-		};
-
-		$scope.deleteTodo = function(id) {
-			$scope.loading = true;
-			Todos.delete(id)
-				.success(function(data) {
-					$scope.loading = false;
-					$scope.todos = data;
-				});
-		};
 	}]);

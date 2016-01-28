@@ -1,3 +1,3 @@
-angular.module('app', ['homeController', 'booksService']);
+angular.module('app', ['homeController', 'booksService','toaster', 'ngAnimate']);
 
 
